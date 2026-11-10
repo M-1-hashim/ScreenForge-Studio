@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'"
+    />
+    <title>annotation</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: transparent;
+        user-select: none;
+      }
+      #canvas {
+        position: fixed;
+        inset: 0;
+      }
+      #tools {
+        position: fixed;
+        top: 14px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: none;
+        align-items: center;
+        gap: 4px;
+        padding: 6px 8px;
+        background: rgba(17, 20, 26, 0.94);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 12px;
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+        z-index: 10;
+      }
+      #tools.visible {
+        display: flex;
+      }
+      #tools button,
+      #tools label {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        background: transparent;
+        color: #cfd4dc;
+        border-radius: 7px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      #tools button:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      #tools button.active {
+        background: rgba(245, 158, 11, 0.22);
+        color: #f59e0b;
+        outline: 1px solid rgba(245, 158, 11, 0.55);
+      }
+      #tools input[type='color'] {
+        width: 30px;
+        height: 30px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        padding: 0;
+      }
+      #tools select {
+        background: #232833;
+        color: #e6e9ef;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 6px;
+        font-size: 12px;
+        padding: 4px;
+      }
+      #textinput {
+        position: fixed;
+        display: none;
+        background: rgba(20, 24, 32, 0.92);
+        color: #fff;
+        border: 1px solid rgba(245, 158, 11, 0.6);
+        border-radius: 6px;
+        font-size: 22px;
+        padding: 6px 10px;
+        outline: none;
+        z-index: 20;
+        min-width: 160px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <div id="tools">
+      <button data-tool="pen" title="Pen">✏</button>
+      <button data-tool="highlighter" title="Highlighter">▭</button>
+      <button data-tool="arrow" title="Arrow">➔</button>
+      <button data-tool="line" title="Line">╱</button>
+      <button data-tool="rect" title="Rectangle">▭</button>
+      <button data-tool="ellipse" title="Ellipse">◯</button>
+      <button data-tool="text" title="Text">T</button>
+      <button data-tool="eraser" title="Eraser">⌫</button>
+      <input type="color" id="color" title="Color" value="#f59e0b" />
+      <select id="width" title="Stroke width">
+        <option value="2">2</option>
+        <option value="4" selected>4</option>
+        <option value="8">8</option>
+        <option value="12">12</option>
+        <option value="20">20</option>
+      </select>
+      <button id="undoBtn" title="Undo (Ctrl+Z)">↺</button>
+      <button id="redoBtn" title="Redo (Ctrl+Shift+Z)">↻</button>
+      <button id="clearBtn" title="Clear all">🗑</button>
+      <button id="doneBtn" title="Done drawing">✓</button>
+    </div>
+    <textarea id="textinput" rows="1"></textarea>
+    <script type="module" src="/overlay/annotation-overlay.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+dist-electron/
+out/
+.vite/
+
+# Packaging artifacts (Setup.exe is published via GitHub Releases)
+release/
+*.blockmap
+builder-debug.yml
+builder-effective-config.yaml
+
+# Large staged binaries — see docs/BUILDING.md for staging instructions
+resources/bin/ffmpeg.exe
+resources/bin/ffprobe.exe
+
+# Logs & temp
+*.log
+npm-debug.log*
+.DS_Store
+
+# Local databases
+*.sqlite
+*.sqlite-journal
+db/*.db

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'"
+    />
+    <title>toolbar</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background: transparent;
+        overflow: hidden;
+        user-select: none;
+        font-family: 'Segoe UI', sans-serif;
+      }
+      #bar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        height: 52px;
+        margin: 10px 12px;
+        padding: 0 12px;
+        background: rgba(17, 20, 26, 0.92);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 14px;
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+        -webkit-app-region: drag;
+      }
+      #dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #ef4444;
+        animation: pulse 1.2s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        50% {
+          opacity: 0.35;
+        }
+      }
+      #dot.paused {
+        animation: none;
+        background: #f59e0b;
+      }
+      #timer {
+        color: #f4f6f9;
+        font: 600 14px/1 'Consolas', monospace;
+        min-width: 58px;
+        -webkit-app-region: no-drag;
+      }
+      button {
+        -webkit-app-region: no-drag;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 9px;
+        border: none;
+        background: transparent;
+        color: #cfd4dc;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      button:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+      }
+      button.stop {
+        background: #ef4444;
+        color: #fff;
+      }
+      button.stop:hover {
+        background: #dc2626;
+      }
+      button.draw.active {
+        background: rgba(245, 158, 11, 0.25);
+        color: #f59e0b;
+        outline: 1px solid rgba(245, 158, 11, 0.6);
+      }
+      #mic {
+        width: 44px;
+        height: 5px;
+        border-radius: 3px;
+        background: rgba(255, 255, 255, 0.14);
+        overflow: hidden;
+        -webkit-app-region: no-drag;
+      }
+      #micfill {
+        height: 100%;
+        width: 0%;
+        background: #34d399;
+        transition: width 0.1s linear;
+      }
+      #spacer {
+        flex: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="bar">
+      <div id="dot"></div>
+      <div id="timer">0:00.0</div>
+      <button id="pauseBtn" title="Pause (recording)">⏸</button>
+      <button id="stopBtn" class="stop" title="Stop recording">■</button>
+      <button id="drawBtn" title="Toggle drawing mode">✏</button>
+      <div id="mic" title="Microphone level"><div id="micfill"></div></div>
+      <div id="spacer"></div>
+      <button id="hideBtn" title="Hide toolbar">–</button>
+    </div>
+    <script type="module" src="/toolbar/floating-toolbar.ts"></script>
+  </body>
+</html>

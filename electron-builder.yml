@@ -1,0 +1,59 @@
+appId: com.screenforge.studio
+productName: ScreenForge Studio
+copyright: Copyright © 2025 ScreenForge Team
+
+directories:
+  output: release/${version}
+  buildResources: resources
+
+files:
+  - dist-electron/**/*
+  - dist/renderer/**/*
+  - package.json
+
+extraResources:
+  - from: resources/bin
+    to: bin
+    filter: ["**/*"]
+  - from: resources/native
+    to: native
+    filter: ["**/*"]
+
+asar: true
+asarUnpack:
+  - "**/*.node"
+
+# Binaries are pre-staged for the Windows x64 target:
+#   - better-sqlite3: electron-v130 win32-x64 prebuild (fetched by the release script)
+#   - @napi-rs/canvas: win32-x64-msvc N-API package (in dependencies)
+# Cross-rebuilding on Linux is impossible, so keep electron-builder's hands off.
+npmRebuild: false
+
+win:
+  target:
+    - target: nsis
+      arch: [x64]
+  icon: resources/icon.ico
+  requestedExecutionLevel: asInvoker
+  artifactName: ${productName}-Setup-${version}.${ext}
+  # Cross-compiling from Linux: wine is unavailable for rcedit/signtool.
+  # The NSIS installer itself is fully branded (icon + metadata); the inner
+  # exe keeps stock Electron metadata. On a Windows build machine remove
+  # this flag to brand the exe as well (see docs/BUILDING.md).
+  signAndEditExecutable: false
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  allowElevation: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: ScreenForge Studio
+  uninstallDisplayName: ScreenForge Studio ${version}
+  deleteAppDataOnUninstall: false
+  installerIcon: resources/icon.ico
+  uninstallerIcon: resources/icon.ico
+  installerHeaderIcon: resources/icon.ico
+
+publish: null
